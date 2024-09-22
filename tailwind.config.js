@@ -4,7 +4,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				title: ["Inknut Antiqua", "serif"],
+				inknut: ["Inknut Antiqua", "serif"],
 			},
 		},
 	},

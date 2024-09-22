@@ -3,7 +3,7 @@ import { HiOutlineShoppingCart } from "react-icons/hi";
 import { PiFlowerLotusLight } from "react-icons/pi";
 export default function Header() {
 	return (
-    <header className="bg-black text-stone-500 font-title">
+    <header className="bg-black text-stone-500 font-inknut">
       <div className="flex justify-between items-center p-2">
         {/* Contenedor del logo e imagen */}
         <div className="flex space-x-2 px-3 items-center"> {/* Usa space-x-2 para reducir el espacio */}
