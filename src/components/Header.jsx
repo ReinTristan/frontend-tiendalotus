@@ -41,6 +41,12 @@ export default function Header() {
             <li>
               <a href="/contact" className="hover:text-white">Iniciar Sesión</a>
             </li>
+            {/*<li>
+              <a href="/contact" className="hover:text-white">Perfil</a>
+            </li>*/}
+            {/*<li>
+              <a href="/contact" className="hover:text-white">Administrar</a>
+            </li>*/}
           </ul>
         </nav>
 
