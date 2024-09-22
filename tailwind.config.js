@@ -5,6 +5,7 @@ export default {
 		extend: {
 			fontFamily: {
 				inknut: ["Inknut Antiqua", "serif"],
+				inria: ["Inria Sans","sans-serif"],
 			},
 		},
 	},
