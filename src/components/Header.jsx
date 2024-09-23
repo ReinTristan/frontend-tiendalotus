@@ -27,19 +27,19 @@ export default function Header() {
               |
             </li>
             <li>
-              <a href="/about" className="hover:text-white">Catalogo</a>
+              <a href="/catalogo" className="hover:text-white">Catalogo</a>
             </li>
             <li> 
               |
             </li>
             <li>
-              <a href="/services" className="hover:text-white">Contacto</a>
+              <a href="/" className="hover:text-white">Contacto</a>
             </li>
             <li> 
               |
             </li>
             <li>
-              <a href="/contact" className="hover:text-white">Iniciar Sesión</a>
+              <a href="/login" className="hover:text-white">Iniciar Sesión</a>
             </li>
             {/*<li>
               <a href="/contact" className="hover:text-white">Perfil</a>

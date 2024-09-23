@@ -4,6 +4,8 @@ import Home from './Views/Home'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Login from './Views/Login'
+import Catalogo from './Views/Catalogo'
+
 function App() {
 	const [count, setCount] = useState(0)
 
@@ -21,8 +23,8 @@ function App() {
 					element: <Login />,
 				},
 				{
-					path: '/shop',
-					element: <Home />,
+					path: '/catalogo',
+					element: <Catalogo />,
 				},
 			],
 		},
