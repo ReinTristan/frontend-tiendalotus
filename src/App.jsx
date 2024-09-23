@@ -3,6 +3,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 import Home from './Views/Home'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Login from './Views/Login'
 function App() {
 	const [count, setCount] = useState(0)
 
@@ -17,7 +18,7 @@ function App() {
 				},
 				{
 					path: '/login',
-					element: <Home />,
+					element: <Login />,
 				},
 				{
 					path: '/shop',
