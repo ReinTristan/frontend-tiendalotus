@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Login from './Views/Login'
 import Catalogo from './Views/Catalogo'
+import Admin from './Views/Admin'
 
 function App() {
 	const [count, setCount] = useState(0)
@@ -25,6 +26,10 @@ function App() {
 				{
 					path: '/catalogo',
 					element: <Catalogo />,
+				},
+				{
+					path: '/admin',
+					element: <Admin />,
 				},
 			],
 		},

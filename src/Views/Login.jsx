@@ -29,7 +29,7 @@ export default function Login() {
                   <input
                     type="text"
                     id="name"
-                    className="w-full p-3 rounded-2xl bg-stone-500 placeholder-white focus:border-blue-500"
+                    className="w-full p-3 rounded-2xl bg-stone-500 placeholder-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                     placeholder="Tu nombre"
                   />
                 </div>
@@ -41,7 +41,7 @@ export default function Login() {
                   <input
                     type="email"
                     id="new-email"
-                    className="w-full p-3 rounded-2xl bg-stone-500 placeholder-white focus:border-blue-500"
+                    className="w-full p-3 rounded-2xl bg-stone-500 placeholder-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                     placeholder="correo@ejemplo.com"
                   />
                 </div>
@@ -53,7 +53,7 @@ export default function Login() {
                   <input
                     type="password"
                     id="new-password"
-                    className="w-full p-3 rounded-2xl bg-stone-500 placeholder-white focus:border-blue-500"
+                    className="w-full p-3 rounded-2xl bg-stone-500 placeholder-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                     placeholder="* * * * * * * *"
                   />
                 </div>
@@ -65,7 +65,7 @@ export default function Login() {
                   <input
                     type="password"
                     id="confirm-password"
-                    className="w-full p-3 rounded-2xl bg-stone-500 placeholder-white focus:border-blue-500"
+                    className="w-full p-3 rounded-2xl bg-stone-500 placeholder-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                     placeholder="* * * * * * * *"
                   />
                 </div>
@@ -97,7 +97,7 @@ export default function Login() {
                   <input
                     type="email"
                     id="email"
-                    className="w-full p-3 rounded-2xl bg-stone-500 placeholder-white focus:border-blue-500"
+                    className="w-full p-3 rounded-2xl bg-stone-500 placeholder-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                     placeholder="correo@ejemplo.com"
                   />
                 </div>
@@ -109,7 +109,7 @@ export default function Login() {
                   <input
                     type="password"
                     id="password"
-                    className="w-full p-3 rounded-2xl bg-stone-500 placeholder-white focus:border-blue-500"
+                    className="w-full p-3 rounded-2xl bg-stone-500 placeholder-white  focus:outline-none focus:ring-2 focus:ring-orange-500"
                     placeholder="* * * * * * * *"
                   />
                 </div>
