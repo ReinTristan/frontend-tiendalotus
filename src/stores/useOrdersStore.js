@@ -4,10 +4,10 @@ import { persist } from 'zustand/middleware'
 
 const useOrdersStore = persist(
 	create((set, get) => ({
-		// Estado inicial del carrito (vacío)
+		// Estado inicial de las ordenes (vacío)
 		orders: [],
 
-		// Función para agregar un producto al carrito
+		// Función para agregar ordenes
 		addOrders: ({ cart, user }) => {
 			if (get().orders.find((order) => order.userId === user.id)) {
 				set((state) => ({
