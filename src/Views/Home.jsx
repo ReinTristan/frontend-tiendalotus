@@ -3,6 +3,8 @@ import { PiFlowerLotusLight } from "react-icons/pi";
 import { FaCircleUser } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa";
 import Image from "../assets/ImageHome.jpg";
+import { Link, Navigate } from "react-router-dom";
+
 
 export default function Home() {
   return (
@@ -33,8 +35,13 @@ export default function Home() {
           </p>
         </div>
         <div className="rounded-2xl px-8 pb-3 bg-orange-500 shadow-lg w-1/5 flex flex-col justify-center items-center">
-          <p className="mt-2">Revisa Nuestro Catalogo</p>
-          <p>→</p>
+        <Link
+              to="/catalogo"
+              className="mt-2 font-normal py-1 block hover:text-white text-center"
+            >
+             <p>Revisa Nuestro Catalogo</p> 
+             <p>→</p> 
+            </Link>
         </div>
       </div>
       {/* Texto centrado al final */}
@@ -139,7 +146,6 @@ export default function Home() {
           className="px-3 pt-3 pb-32 bg-stone-500 bg-opacity-95 placeholder-white border-stone-400 rounded-2xl focus:outline-none focus:ring-2 focus:ring-orange-500"
         />
         <button 
-          type="submit" 
           className="bg-orange-500 text-white font-bold py-3 rounded-2xl hover:bg-orange-600 transition-all">
           Enviar
         </button>
