@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
 import { PiFlowerLotusLight } from 'react-icons/pi'
+import { Link, Navigate } from 'react-router-dom'
 
 const CartItem = ({ item, onAdd, onRemove }) => {
 	return (
@@ -90,15 +91,14 @@ export default function Header() {
 				<nav>
 					<ul className='flex space-x-6 font-title text-2xl'>
 						<li>
-							<a href='/' className='hover:text-white'>
+							{/* <a href='/' className='hover:text-white'>
 								Inicio
-							</a>
+							</a> */}
+							<Link to='/'> Inicio</Link>
 						</li>
 						<li>|</li>
 						<li>
-							<a href='/catalogo' className='hover:text-white'>
-								Catálogo
-							</a>
+							<Link to='catalogo'> Catalogo</Link>
 						</li>
 						<li>|</li>
 						<li>
