@@ -11,7 +11,7 @@ import Footer from './components/Footer'
 import Login from './Views/Login'
 import Catalogo from './Views/Catalogo'
 import Admin from './Views/Admin'
-
+import { Toaster } from 'react-hot-toast'
 function App() {
 	const router = createHashRouter([
 		{
@@ -40,6 +40,7 @@ function App() {
 
 	return (
 		<>
+			<Toaster />
 			<RouterProvider router={router} />
 		</>
 	)
