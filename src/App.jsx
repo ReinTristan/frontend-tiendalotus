@@ -1,12 +1,19 @@
 import { useState } from 'react'
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+import {
+	createBrowserRouter,
+	createHashRouter,
+	Outlet,
+	RouterProvider,
+} from 'react-router-dom'
 import Home from './Views/Home'
 import Header from './components/Header'
 import Footer from './components/Footer'
-function App() {
-	const [count, setCount] = useState(0)
+import Login from './Views/Login'
+import Catalogo from './Views/Catalogo'
+import Admin from './Views/Admin'
 
-	const router = createBrowserRouter([
+function App() {
+	const router = createHashRouter([
 		{
 			path: '/',
 			element: <Layout />,
@@ -17,11 +24,15 @@ function App() {
 				},
 				{
 					path: '/login',
-					element: <Home />,
+					element: <Login />,
 				},
 				{
-					path: '/shop',
-					element: <Home />,
+					path: '/catalogo',
+					element: <Catalogo />,
+				},
+				{
+					path: '/admin',
+					element: <Admin />,
 				},
 			],
 		},
