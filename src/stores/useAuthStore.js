@@ -9,7 +9,7 @@ const defaultUsers = [
 		name: 'Admin User',
 		email: 'admin@example.com',
 		role: 'admin',
-		password: 'admin123', // En un caso real, nunca guardes contraseñas así
+		password: 'admin123',
 	},
 	{
 		id: 2,
