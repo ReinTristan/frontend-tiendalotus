@@ -12,6 +12,7 @@ import Login from './Views/Login'
 import Catalogo from './Views/Catalogo'
 import Admin from './Views/Admin'
 import { Toaster } from 'react-hot-toast'
+import ProtectedRoute from './components/ProtectedRoutes'
 function App() {
 	const router = createHashRouter([
 		{
@@ -24,7 +25,11 @@ function App() {
 				},
 				{
 					path: '/login',
-					element: <Login />,
+					element: (
+						<ProtectedRoute>
+							<Login />
+						</ProtectedRoute>
+					),
 				},
 				{
 					path: '/catalogo',
@@ -32,7 +37,11 @@ function App() {
 				},
 				{
 					path: '/admin',
-					element: <Admin />,
+					element: (
+						<ProtectedRoute>
+							<Admin />,
+						</ProtectedRoute>
+					),
 				},
 			],
 		},
@@ -50,6 +59,7 @@ function Layout() {
 	return (
 		<>
 			<Header />
+
 			<Outlet />
 			<Footer />
 		</>

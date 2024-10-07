@@ -5,14 +5,14 @@ import { persist } from 'zustand/middleware'
 // Definimos los usuarios por defecto
 const defaultUsers = [
 	{
-		id: 1,
+		id: 'qfPny2pk10LlUiRlq6N8G',
 		name: 'Admin User',
 		email: 'admin@example.com',
 		role: 'admin',
-		password: 'admin123', // En un caso real, nunca guardes contraseñas así
+		password: 'e',
 	},
 	{
-		id: 2,
+		id: 'plF3y2as22Lmmilll6NDD',
 		name: 'Regular User',
 		email: 'user@example.com',
 		role: 'user',
@@ -40,14 +40,20 @@ const useAuthStore = create(
 					return { loginError: 'Invalid username or password' }
 				})
 			},
-			register: ({ name, email, password }) => {
+			register: ({ name, email, password, role = 'user' }) => {
+				if (
+					get().currentUser.role !== 'admin' &&
+					role.toLowerCase() !== 'user'
+				) {
+					return 'Unauthorized'
+				}
 				set((state) => {
 					const user = {
 						id: nanoid(),
 						name,
 						email,
 						password,
-						role: 'user',
+						role: role.toLowerCase(),
 					}
 					return { users: [...state.users, user] }
 				})

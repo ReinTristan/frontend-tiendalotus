@@ -9,7 +9,8 @@ const useOrdersStore = create(
 			orders: [],
 
 			// Función para agregar ordenes
-			addOrders: ({ cart, user }) => {
+			addOrders: ({ cart, user, total }) => {
+				console.log('cart', cart, 'user', user, 'total', total)
 				if (get().orders.find((order) => order.userId === user.id)) {
 					set((state) => ({
 						orders: state.orders.map((order) => {
@@ -18,7 +19,7 @@ const useOrdersStore = create(
 									...order,
 									orders: [
 										...order.orders,
-										{ products: cart, date: new Date(), id: nanoid(5) },
+										{ products: cart, date: new Date(), id: nanoid(5), total },
 									],
 								}
 							}
@@ -27,11 +28,13 @@ const useOrdersStore = create(
 					}))
 				} else {
 					set((state) => ({
-						cart: [
-							...state.cart,
+						orders: [
+							...state.orders,
 							{
 								userId: user.id,
-								orders: [{ products: cart, date: new Date(), id: nanoid(5) }],
+								orders: [
+									{ products: cart, date: new Date(), id: nanoid(5), total },
+								],
 							},
 						],
 					}))
@@ -56,7 +59,9 @@ const useOrdersStore = create(
 				}))
 			},
 			getOrders: (userId) => {
-				return get().orders.find((order) => order.userId === userId)
+				return (
+					get().orders.find((order) => order.userId === userId)?.orders ?? []
+				)
 			},
 			getAllOrders: () => {
 				return get().orders
