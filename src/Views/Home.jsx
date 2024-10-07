@@ -9,7 +9,6 @@ import { useMiscStore } from '../stores/useMiscStore'
 
 export default function Home() {
 	const contactRef = useMiscStore((state) => state.contactRef)
-	console.log(contactRef)
 	const handleContacto = (e) => {
 		e.preventDefault()
 		toast.success('Mensaje enviado')

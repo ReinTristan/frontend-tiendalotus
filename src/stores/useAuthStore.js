@@ -9,7 +9,7 @@ const defaultUsers = [
 		name: 'Admin User',
 		email: 'admin@example.com',
 		role: 'admin',
-		password: 'e',
+		password: 'admin123',
 	},
 	{
 		id: 'plF3y2as22Lmmilll6NDD',
@@ -20,29 +20,29 @@ const defaultUsers = [
 	},
 ]
 
-// Definimos la store de Zustand
 const useAuthStore = create(
 	persist(
 		(set, get) => ({
 			users: defaultUsers,
 			currentUser: null,
-			loginError: null,
 
 			// Función para manejar el login
 			login: ({ email, password }) => {
-				set((state) => {
-					const user = state.users.find(
-						(u) => u.email === email && u.password === password
-					)
-					if (user) {
-						return { currentUser: user, loginError: null }
-					}
-					return { loginError: 'Invalid username or password' }
-				})
+				const user = get().users.find(
+					(u) => u.email === email && u.password === password
+				)
+				if (user) {
+					set((state) => {
+						return { currentUser: user }
+					})
+					return { success: true, loginError: null }
+				}
+				return { loginError: 'Invalid username or password' }
 			},
+			// Función para registrar un usuario
 			register: ({ name, email, password, role = 'user' }) => {
 				if (
-					get().currentUser.role !== 'admin' &&
+					get().currentUser?.role !== 'admin' &&
 					role.toLowerCase() !== 'user'
 				) {
 					return 'Unauthorized'

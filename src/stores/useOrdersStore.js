@@ -10,7 +10,6 @@ const useOrdersStore = create(
 
 			// Función para agregar ordenes
 			addOrders: ({ cart, user, total }) => {
-				console.log('cart', cart, 'user', user, 'total', total)
 				if (get().orders.find((order) => order.userId === user.id)) {
 					set((state) => ({
 						orders: state.orders.map((order) => {
@@ -40,6 +39,7 @@ const useOrdersStore = create(
 					}))
 				}
 			},
+			// Función para modificar ordenes
 			modifyOrders: (userId, orderId, newOrder) => {
 				set((state) => ({
 					orders: state.orders.map((order) => {
@@ -58,11 +58,13 @@ const useOrdersStore = create(
 					}),
 				}))
 			},
+			// Funcion para obtener las ordenes de un usuario
 			getOrders: (userId) => {
 				return (
 					get().orders.find((order) => order.userId === userId)?.orders ?? []
 				)
 			},
+			// Función para obtener todas las ordenes
 			getAllOrders: () => {
 				return get().orders
 			},

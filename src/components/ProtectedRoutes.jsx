@@ -7,7 +7,6 @@ export default function ProtectedRoute({ children }) {
 	const { isAuthenticated, currentUser } = useAuthStore((state) => state)
 	const location = useLocation()
 	const currentPath = location.pathname
-	console.log(currentPath, isAuthenticated())
 	const isProtectedRoute = protectedRoutes.includes(currentPath)
 
 	if (isAuthenticated() && isProtectedRoute) {

@@ -15,7 +15,6 @@ export default function Login() {
 	const emailRegRef = useRef()
 	const passwordRegRef = useRef()
 	const passwordConfirmRegRef = useRef()
-	console.log(users)
 	const sendFormRegister = (event) => {
 		event.preventDefault()
 		if (passwordRegRef.current.value !== passwordConfirmRegRef.current.value) {
@@ -33,8 +32,8 @@ export default function Login() {
 		event.preventDefault()
 		const email = emailRef.current.value
 		const password = passwordRef.current.value
-		login({ email, password })
-		if (!isAuthenticated) {
+		const res = login({ email, password })
+		if (res?.loginError) {
 			toast.error('Usuario o contraseña incorrectos')
 			return
 		}
