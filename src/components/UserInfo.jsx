@@ -8,7 +8,6 @@ export default function UserInfo({ usuario }) {
 	const [isOpen, setIsOpen] = useState(false)
 	const getOrders = useOrdersStore((state) => state.getOrders)
 	const orders = getOrders(usuario.id)
-	console.log(orders)
 	return (
 		<div
 			className={`flex flex-col p-4 rounded-xl ${

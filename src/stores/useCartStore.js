@@ -30,6 +30,7 @@ const useCartStore = create(
 					}
 				})
 			},
+			// Función para actualizar la cantidad de un producto del carrito
 			updateQuantity: ({ productId, quantity }) => {
 				set((state) => ({
 					cart: state.cart.map((item) => {
@@ -73,6 +74,7 @@ const useCartStore = create(
 					subtotal: 0,
 				}))
 			},
+			// Función para actualizar el subtotal y el total
 			setSubAndTotal: () => {
 				set((state) => {
 					const subtotal = state.cart.reduce(
@@ -88,7 +90,7 @@ const useCartStore = create(
 				})
 			},
 		}),
-		{ name: 'cartStore', storage: createJSONStorage(() => localStorage) } // Nombre y tipo de almacenamiento
+		{ name: 'cartStore', storage: createJSONStorage(() => localStorage) }
 	)
 )
 
