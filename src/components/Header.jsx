@@ -1,21 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
 import { PiFlowerLotusLight } from 'react-icons/pi'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import useAuthStore from '../stores/useAuthStore'
 import toast from 'react-hot-toast'
+import useCartStore from '../stores/useCartStore'
+import useOrdersStore from '../stores/useOrdersStore'
+import { useMiscStore } from '../stores/useMiscStore'
 
 const CartItem = ({ item, onAdd, onRemove }) => {
+	const cartStore = useCartStore((state) => state)
 	return (
 		<div className='flex items-center justify-between mb-2'>
 			<img src={item.image} alt={item.name} className='w-16 h-16 rounded-lg' />
 			<span className='ml-2'>{item.name}</span>
 			<div className='flex flex-col items-center ml-2'>
-				<span className='font-bold'>${(10).toFixed(2)}</span>{' '}
+				<span className='font-bold'>${item.price.toFixed(2)}</span>{' '}
 				{/* Precio del objeto, se asume un precio fijo de 10 */}
 				<div className='flex items-center  mt-1'>
 					<button
-						onClick={onRemove}
+						onClick={() =>
+							cartStore.addQuantity({
+								productId: item.id,
+								quantity: -1,
+							})
+						}
 						className=' px-2 rounded-s-lg border border-black'
 					>
 						-
@@ -24,7 +33,9 @@ const CartItem = ({ item, onAdd, onRemove }) => {
 						{item.quantity}
 					</span>
 					<button
-						onClick={onAdd}
+						onClick={() =>
+							cartStore.addQuantity({ productId: item.id, quantity: 1 })
+						}
 						className=' px-2 rounded-r-lg border border-black'
 					>
 						+
@@ -39,7 +50,16 @@ export default function Header() {
 	const { isAuthenticated, logout, currentUser } = useAuthStore(
 		(state) => state
 	)
+	const cartStore = useCartStore((state) => state)
+	const orderStore = useOrdersStore((state) => state)
+	const contactRef = useRef()
+	const setContactRef = useMiscStore((state) => state.setContactRef)
+
+	useEffect(() => {
+		setContactRef(contactRef)
+	}, [])
 	const navigate = useNavigate()
+	const location = useLocation()
 	const [isCartOpen, setIsCartOpen] = useState(false)
 	const [cartItems, setCartItems] = useState([
 		{
@@ -55,33 +75,18 @@ export default function Header() {
 			image: 'https://via.placeholder.com/150',
 		},
 	])
-
 	const toggleCart = () => {
 		setIsCartOpen(!isCartOpen)
 	}
-
-	const handleAdd = (id) => {
-		setCartItems(
-			cartItems.map((item) =>
-				item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-			)
-		)
+	const handleContacto = () => {
+		if (location.pathname !== '/') {
+			navigate('/')
+		}
+		contactRef.current.scrollIntoView({ behavior: 'smooth' })
 	}
-
-	const handleRemove = (id) => {
-		setCartItems(
-			cartItems.map((item) =>
-				item.id === id && item.quantity > 0
-					? { ...item, quantity: item.quantity - 1 }
-					: item
-			)
-		)
-	}
-
-	const subtotal = cartItems.reduce((acc, item) => acc + item.quantity * 10, 0) // Asumiendo un precio fijo de 10 por item
-	const shippingCost = 5
-	const total = subtotal + shippingCost
-
+	useEffect(() => {
+		cartStore.setSubAndTotal()
+	}, [cartStore.cart])
 	return (
 		<header className='bg-black text-stone-500 font-inknut'>
 			<div className='flex justify-between items-center p-2'>
@@ -102,23 +107,24 @@ export default function Header() {
 							</Link>
 						</li>
 						<li>|</li>
+
+						<li>
+							<button className='hover:text-white' onClick={handleContacto}>
+								Contacto
+							</button>
+						</li>
+						<li>|</li>
 						<li>
 							<Link to='catalogo' className='hover:text-white'>
 								Catalogo
 							</Link>
 						</li>
-						<li>|</li>
 
-						<li>
-							<Link to='/' className='hover:text-white'>
-								Contacto
-							</Link>
-						</li>
 						<li>|</li>
 						{isAuthenticated() && currentUser?.role === 'admin' && (
 							<>
 								<li>
-									<Link to='/' className='hover:text-white'>
+									<Link to='/admin' className='hover:text-white'>
 										Administrar
 									</Link>
 								</li>
@@ -136,6 +142,7 @@ export default function Header() {
 								<button
 									className='hover:text-white'
 									onClick={() => {
+										cartStore.clearCart()
 										logout()
 										toast.success('Sesión cerrada')
 										navigate('/')
@@ -163,12 +170,12 @@ export default function Header() {
 								<p className='text-xl font-bold mb-4'>Carrito</p>
 
 								{/* Items del carrito */}
-								{cartItems.map((item) => (
+								{cartStore.cart.map((item) => (
 									<CartItem
 										key={item.id}
 										item={item}
-										onAdd={() => handleAdd(item.id)}
-										onRemove={() => handleRemove(item.id)}
+										onAdd={() => cartStore.addToCart(item.id)}
+										onRemove={() => cartStore.removeFromCart(item.id)}
 									/>
 								))}
 
@@ -177,11 +184,18 @@ export default function Header() {
 								{/* Subtotal y Costo de envío con precios alineados a la derecha */}
 								<div className='flex justify-between font-bold'>
 									<span>Subtotal</span>
-									<span className='text-right'>${subtotal.toFixed(2)}</span>
+									<span className='text-right'>
+										${cartStore.subtotal.toFixed(2)}
+									</span>
 								</div>
 								<div className='flex justify-between font-bold'>
 									<span>Costo de envío</span>
-									<span className='text-right'>${shippingCost.toFixed(2)}</span>
+									<span className='text-right'>
+										$
+										{cartStore.cart.length > 0
+											? cartStore.shippingCost.toFixed(2)
+											: '0.00'}
+									</span>
 								</div>
 
 								<div className='relative flex items-center flex-grow border-t border-black mt-2'></div>
@@ -191,11 +205,30 @@ export default function Header() {
 									<span>Total</span>
 									<span className='text-right'>
 										<span className='text-stone-500'>USD</span> $
-										{total.toFixed(2)}
+										{cartStore.total.toFixed(2)}
 									</span>
 								</div>
 
-								<button className='font-bold w-full bg-orange-500 text-black py-2 rounded-2xl hover:bg-orange-600'>
+								<button
+									className='font-bold w-full bg-orange-500 text-black py-2 rounded-2xl hover:bg-orange-600 disabled:opacity-50'
+									disabled={cartStore.cart.length <= 0}
+									onClick={() => {
+										if (!isAuthenticated()) {
+											setIsCartOpen(false)
+											navigate('/login')
+											toast.error('Inicia sesion para continuar')
+											return
+										}
+										setIsCartOpen(false)
+										toast.success('Orden confirmada')
+										orderStore.addOrders({
+											cart: cartStore.cart,
+											user: currentUser,
+											total: cartStore.total,
+										})
+										cartStore.clearCart()
+									}}
+								>
 									Confirmar Orden
 								</button>
 							</div>
